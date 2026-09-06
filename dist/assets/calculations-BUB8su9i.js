@@ -1,0 +1,11 @@
+import{c as r}from"./index-z22-7Z-P.js";/**
+ * @license lucide-react v0.400.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const l=r("OctagonAlert",[["polygon",{points:"7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2",key:"h1p8hx"}],["line",{x1:"12",x2:"12",y1:"8",y2:"12",key:"1pkeuh"}],["line",{x1:"12",x2:"12.01",y1:"16",y2:"16",key:"4dfq90"}]]);/**
+ * @license lucide-react v0.400.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const n=r("Share2",[["circle",{cx:"18",cy:"5",r:"3",key:"gq8acd"}],["circle",{cx:"6",cy:"12",r:"3",key:"w7nqdw"}],["circle",{cx:"18",cy:"19",r:"3",key:"1xt0gg"}],["line",{x1:"8.59",x2:"15.42",y1:"13.51",y2:"17.49",key:"47mynk"}],["line",{x1:"15.41",x2:"8.59",y1:"6.51",y2:"10.49",key:"1n3mei"}]]);function y(e){return e>=60?"#ef4444":e>=30?"#f59e0b":"#10b981"}function i(e){return e<=4?{label:"Minimal",color:"#10b981",severity:"none"}:e<=9?{label:"Mild",color:"#84cc16",severity:"mild"}:e<=14?{label:"Moderate",color:"#f59e0b",severity:"moderate"}:e<=19?{label:"Moderately Severe",color:"#f97316",severity:"moderately_severe"}:{label:"Severe",color:"#ef4444",severity:"severe"}}export{l as O,n as S,y as a,i as g};
