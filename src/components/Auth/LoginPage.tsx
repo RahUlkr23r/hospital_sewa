@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 import { Shield, User, Stethoscope, Building2, KeyRound, Mail, Lock, ArrowRight, Sparkles } from 'lucide-react';

@@ -1,5 +1,5 @@
 import React, { useState, lazy, Suspense } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router';
 import { useAuth } from './context/AuthContext';
 import Navbar from './components/Common/Navbar';
 import Sidebar from './components/Common/Sidebar';

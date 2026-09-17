@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route, NavLink } from 'react-router';
 import { Activity, Users, Database, Settings as SettingsIcon, LayoutDashboard } from 'lucide-react';
 import SystemDashboard from '../components/Admin/SystemDashboard';
 import UserManagement from '../components/Admin/UserManagement';
@@ -29,7 +29,7 @@ const AdminPortal = () => {
               key={item.path}
               to={`/admin/${item.path}`}
               end={item.path === ''}
-              className={({ isActive }) =>
+              className={({ isActive }: { isActive: boolean }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                   isActive
                     ? 'bg-[var(--bg-card)] text-amber-500 shadow-md border border-[var(--border-color)]'

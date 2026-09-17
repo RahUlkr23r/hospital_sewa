@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Users, BedDouble, AlertTriangle, Activity, ArrowRight, Ambulance, Share2, Clock, ShieldAlert } from 'lucide-react';
 import type { Referral } from '../../utils/types';
 

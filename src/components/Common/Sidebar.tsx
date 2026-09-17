@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 import { useAuth } from '../../context/AuthContext';
 import {
   LayoutDashboard, FileHeart, Watch, Video, Pill, FlaskConical,
@@ -114,7 +114,7 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
               to={item.path}
               end={item.path === '/patient' || item.path === '/hospital' || item.path === '/government' || item.path === '/admin'}
               onClick={onClose}
-              className={({ isActive }) =>
+              className={({ isActive }: { isActive: boolean }) =>
                 `sidebar-item ${isActive ? 'sidebar-item-active' : ''}`
               }
             >

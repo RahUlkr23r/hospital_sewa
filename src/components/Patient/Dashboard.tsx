@@ -23,7 +23,7 @@ import {
   EyeOff, 
   Hospital 
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import toast from 'react-hot-toast';
 import StatCard from '../Common/StatCard';
 import type { Patient, HealthAlert, Referral } from '../../utils/types';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router';
 import Dashboard from '../components/Patient/Dashboard';
 import MedicalHistory from '../components/Patient/MedicalHistory';
 import Wearables from '../components/Patient/Wearables';
