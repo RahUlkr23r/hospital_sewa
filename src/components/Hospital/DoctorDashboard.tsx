@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Users, BedDouble, AlertTriangle, Activity, ArrowRight, Ambulance } from 'lucide-react';
+import { Users, BedDouble, AlertTriangle, Activity, ArrowRight, Ambulance, Share2, Clock, ShieldAlert } from 'lucide-react';
+import type { Referral } from '../../utils/types';
 
 export default function DoctorDashboard() {
   const [stats, setStats] = useState({
@@ -12,19 +13,68 @@ export default function DoctorDashboard() {
   });
 
   const [topTriage, setTopTriage] = useState<any[]>([]);
+  const [criticalReferral, setCriticalReferral] = useState<Referral | null>(null);
 
   useEffect(() => {
     // Read from localStorage (simulate real data)
     const triageData = JSON.parse(localStorage.getItem('hb_triage_queue') || '[]');
     setTopTriage(triageData.sort((a: any, b: any) => b.cdi - a.cdi).slice(0, 3));
+
+    const refs: Referral[] = JSON.parse(localStorage.getItem('hb_referrals') || '[]');
+    const critical = refs.find(
+      r => (r.priority === 'CRITICAL' || r.priority === 'EMERGENCY') && 
+           r.status !== 'COMPLETED' && r.status !== 'ADMITTED'
+    );
+    if (critical) setCriticalReferral(critical);
   }, []);
 
   return (
     <div className="space-y-6">
       <header>
         <h1 className="section-title">Doctor Dashboard</h1>
-        <p className="text-[var(--text-secondary)]">Welcome back, Dr. Smith. Here is your overview for today.</p>
+        <p className="text-[var(--text-secondary)]">Welcome back, Dr. Priya Sharma. Here is your overview for today.</p>
       </header>
+
+      {/* Pre-Arrival Emergency Referral Banner */}
+      {criticalReferral && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="p-4 rounded-xl bg-red-500/10 border-2 border-red-500/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+        >
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-lg bg-red-500/20 text-red-500 animate-bounce">
+              <ShieldAlert size={24} />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-mono uppercase bg-red-600 text-white px-2 py-0.5 rounded font-bold">
+                  🚨 PRE-ARRIVAL EMERGENCY REFERRAL
+                </span>
+                <span className="text-xs font-mono font-bold text-red-400">
+                  {criticalReferral.pmid}
+                </span>
+              </div>
+              <h3 className="font-bold text-base text-[var(--text-primary)] mt-0.5">
+                {criticalReferral.patientName} ({criticalReferral.bloodGroup}) — {criticalReferral.reason}
+              </h3>
+              <p className="text-xs text-[var(--text-secondary)]">
+                From: <strong>{criticalReferral.fromHospitalName}</strong> • ETA: ~{criticalReferral.expectedArrivalMinutes} mins
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 self-end md:self-auto">
+            <Link
+              to="/hospital/referrals"
+              className="btn-primary bg-red-600 hover:bg-red-500 text-xs px-4 py-2 font-bold shadow-lg shadow-red-600/30 flex items-center gap-1.5"
+            >
+              <span>Inspect Handoff & Accept</span>
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+        </motion.div>
+      )}
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -91,6 +141,10 @@ export default function DoctorDashboard() {
           <div className="glass-card p-6">
             <h3 className="font-medium mb-4">Quick Actions</h3>
             <div className="space-y-2">
+              <Link to="/hospital/referrals" className="btn-primary w-full justify-center flex items-center gap-1.5">
+                <Share2 size={16} />
+                <span>Hospital Referrals & Pre-Arrival</span>
+              </Link>
               <Link to="/hospital/consultation" className="btn-secondary w-full justify-center">New Consultation</Link>
               <Link to="/hospital/pill-scanner" className="btn-secondary w-full justify-center">Scan Medication</Link>
               <Link to="/hospital/biometric" className="btn-secondary w-full justify-center">Emergency Access</Link>

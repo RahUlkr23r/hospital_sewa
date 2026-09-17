@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Fingerprint, ScanBarcode, User, AlertTriangle, FileText, CheckCircle } from 'lucide-react';
+import { Fingerprint, ScanBarcode, User, AlertTriangle, FileText, CheckCircle, ShieldCheck } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { appendAuditLogEntry } from '../../utils/pmidService';
 
 export default function BiometricAccess() {
   const [isScanning, setIsScanning] = useState(false);
@@ -15,29 +16,45 @@ export default function BiometricAccess() {
     // Simulate API delay and processing
     setTimeout(() => {
       setIsScanning(false);
-      const mockPatient = {
-        name: 'Rahul Sharma',
-        id: 'UID-9876-5432',
-        age: 42,
-        bloodGroup: 'O+',
-        allergies: ['Penicillin', 'Peanuts'],
-        conditions: ['Hypertension Type 2'],
-        emergencyContact: '+91 98765 43210'
+      const patients = JSON.parse(localStorage.getItem('hb_patients') || '[]');
+      const patient = patients.length > 0 ? patients[0] : null;
+
+      const mockPatient = patient ? {
+        name: patient.name,
+        id: patient.id,
+        pmid: patient.pmid || 'PMID-IND-8F42K91X',
+        age: patient.age,
+        bloodGroup: patient.bloodGroup,
+        allergies: patient.allergies || ['Penicillin', 'Sulfa drugs'],
+        conditions: (patient.diseases || []).map((d: any) => d.name),
+        emergencyContact: patient.emergencyContact?.phone || '+91-98765-00002'
+      } : {
+        name: 'Rahul Kumar',
+        id: 'pat-1',
+        pmid: 'PMID-IND-8F42K91X',
+        age: 24,
+        bloodGroup: 'B+',
+        allergies: ['Penicillin', 'Sulfa drugs'],
+        conditions: ['Bronchial Asthma', 'Mild Mitral Valve Prolapse'],
+        emergencyContact: '+91-98765-00002'
       };
+
       setPatientData(mockPatient);
-      toast.success('Patient identified successfully');
+      toast.success(`Patient identified: ${mockPatient.name} (${mockPatient.pmid})`);
       
-      // Audit log entry
-      const logs = JSON.parse(localStorage.getItem('hb_audit_logs') || '[]');
-      logs.push({
-        action: 'EMERGENCY_ACCESS',
+      // Cryptographic Audit log entry
+      appendAuditLogEntry({
         patientId: mockPatient.id,
-        timestamp: new Date().toISOString(),
-        method: scanMethod,
-        status: 'SUCCESS'
+        patientName: mockPatient.name,
+        actorId: 'doc-1',
+        actorName: 'Dr. Priya Sharma',
+        actorRole: 'doctor',
+        action: `Emergency ${scanMethod.toUpperCase()} Scan`,
+        accessReason: 'Emergency Trauma Identification',
+        details: `Identified patient by ${scanMethod}. PMID: ${mockPatient.pmid}. Records loaded for acute triage.`,
+        hospitalName: 'Apollo Multispeciality Hospital'
       });
-      localStorage.setItem('hb_audit_logs', JSON.stringify(logs));
-    }, 2500);
+    }, 2000);
   };
 
   return (

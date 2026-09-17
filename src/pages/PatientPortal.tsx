@@ -13,12 +13,14 @@ import VaccinePassport from '../components/Patient/VaccinePassport';
 import EmergencyPlan from '../components/Patient/EmergencyPlan';
 import Gamification from '../components/Patient/Gamification';
 import OrganDonation from '../components/Patient/OrganDonation';
+import PatientReferrals from '../components/Patient/PatientReferrals';
 
 const PatientPortal: React.FC = () => {
   return (
     <div className="flex-1 w-full p-4 lg:p-6 overflow-y-auto bg-[var(--bg-primary)]">
       <Routes>
         <Route path="/" element={<Dashboard />} />
+        <Route path="/referrals" element={<PatientReferrals />} />
         <Route path="/history" element={<MedicalHistory />} />
         <Route path="/wearables" element={<Wearables />} />
         <Route path="/telemedicine" element={<Telemedicine />} />

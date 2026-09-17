@@ -21,6 +21,7 @@ interface MenuItem {
 
 const patientMenu: MenuItem[] = [
   { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} />, path: '/patient' },
+  { id: 'referrals', label: 'Hospital Referrals', icon: <ArrowRightLeft size={18} />, path: '/patient/referrals' },
   { id: 'history', label: 'Medical History', icon: <FileHeart size={18} />, path: '/patient/history' },
   { id: 'wearables', label: 'Wearable IoT', icon: <Watch size={18} />, path: '/patient/wearables' },
   { id: 'telemedicine', label: 'Telemedicine', icon: <Video size={18} />, path: '/patient/telemedicine' },

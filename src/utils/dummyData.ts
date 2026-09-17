@@ -8,12 +8,12 @@ import type {
   Consultation, Prescription, InsuranceClaim, BedInfo, AmbulanceData,
   HealthAlert, AuditLog, VaccinationCamp, DiseaseCluster, EnvironmentalData,
   GovernmentScheme, TelemedicineAppointment, MentalHealthAssessment,
-  ChatMessage, LabReport,
+  ChatMessage, LabReport, Referral,
 } from './types';
 
 // ===== USERS =====
 export const seedUsers: User[] = [
-  { id: 'user-patient-1', email: 'patient@healthbridge.demo', password: 'Demo@123', role: 'patient', name: 'Arjun Mehta', avatar: '👤' },
+  { id: 'user-patient-1', email: 'patient@healthbridge.demo', password: 'Demo@123', role: 'patient', name: 'Rahul Kumar', avatar: '👤' },
   { id: 'user-doctor-1', email: 'doctor@healthbridge.demo', password: 'Demo@123', role: 'doctor', name: 'Dr. Priya Sharma', hospitalId: 'hosp-1', avatar: '👩‍⚕️' },
   { id: 'user-gov-1', email: 'gov@healthbridge.demo', password: 'Demo@123', role: 'government', name: 'Dir. Rajesh Kumar', avatar: '🏛️' },
   { id: 'user-admin-1', email: 'admin@healthbridge.demo', password: 'Demo@123', role: 'admin', name: 'CMO Dr. Anita Desai', avatar: '🔐' },
@@ -39,7 +39,17 @@ export const seedDoctors: Doctor[] = [
 // ===== PATIENTS =====
 export const seedPatients: Patient[] = [
   {
-    id: 'pat-1', name: 'Arjun Mehta', age: 45, gender: 'Male', bloodGroup: 'B+', mobile: '+91-9876500001', email: 'arjun.m@email.com', address: '24, Palm Road, Andheri, Mumbai', aadhaar: '1234-5678-9012',
+    id: 'pat-1',
+    pmid: 'PMID-IND-8F42K91X',
+    pmidStatus: 'verified',
+    name: 'Rahul Kumar',
+    age: 24,
+    gender: 'Male',
+    bloodGroup: 'B+',
+    mobile: '+91-9876500001',
+    email: 'rahul.k@email.com',
+    address: '24, Palm Road, Andheri, Mumbai',
+    aadhaar: '1234-5678-9012',
     fingerprintHash: sha256('arjun-fingerprint-001'),
     familyId: 'fam-1',
     geneticMarkers: [
@@ -153,7 +163,10 @@ export const seedPatients: Patient[] = [
     ],
   },
   {
-    id: 'pat-2', name: 'Sneha Iyer', age: 32, gender: 'Female', bloodGroup: 'O+', mobile: '+91-9876500010', email: 'sneha.i@email.com', address: '12, MG Road, Bangalore', aadhaar: '2345-6789-0123',
+    id: 'pat-2',
+    pmid: 'PMID-IND-3C91M74P',
+    pmidStatus: 'verified',
+    name: 'Sneha Iyer', age: 32, gender: 'Female', bloodGroup: 'O+', mobile: '+91-9876500010', email: 'sneha.i@email.com', address: '12, MG Road, Bangalore', aadhaar: '2345-6789-0123',
     fingerprintHash: sha256('sneha-fingerprint-002'),
     familyId: 'fam-2',
     geneticMarkers: [{ gene: 'BRCA2', variant: 'Pathogenic', riskLevel: 'high', condition: 'Breast/Ovarian Cancer' }],
@@ -183,7 +196,10 @@ export const seedPatients: Patient[] = [
     consentStatus: [],
   },
   {
-    id: 'pat-3', name: 'Ramesh Gupta', age: 68, gender: 'Male', bloodGroup: 'A-', mobile: '+91-9876500020', email: 'ramesh.g@email.com', address: '56, Civil Lines, Delhi', aadhaar: '3456-7890-1234',
+    id: 'pat-3',
+    pmid: 'PMID-IND-7T19K52Z',
+    pmidStatus: 'verified',
+    name: 'Ramesh Gupta', age: 68, gender: 'Male', bloodGroup: 'A-', mobile: '+91-9876500020', email: 'ramesh.g@email.com', address: '56, Civil Lines, Delhi', aadhaar: '3456-7890-1234',
     fingerprintHash: sha256('ramesh-fingerprint-003'),
     familyId: 'fam-3',
     geneticMarkers: [{ gene: 'APOE', variant: 'ε4/ε4', riskLevel: 'high', condition: "Alzheimer's Disease" }],
@@ -227,7 +243,10 @@ export const seedPatients: Patient[] = [
     consentStatus: [{ entityId: 'hosp-2', entityType: 'hospital', consentGiven: true, date: '2024-01-01', scope: ['medical_records', 'lab_reports', 'prescriptions'] }],
   },
   {
-    id: 'pat-4', name: 'Fatima Khan', age: 28, gender: 'Female', bloodGroup: 'AB+', mobile: '+91-9876500030', email: 'fatima.k@email.com', address: '78, Jubilee Hills, Hyderabad', aadhaar: '4567-8901-2345',
+    id: 'pat-4',
+    pmid: 'PMID-IND-5W83B29Q',
+    pmidStatus: 'verified',
+    name: 'Fatima Khan', age: 28, gender: 'Female', bloodGroup: 'AB+', mobile: '+91-9876500030', email: 'fatima.k@email.com', address: '78, Jubilee Hills, Hyderabad', aadhaar: '4567-8901-2345',
     fingerprintHash: sha256('fatima-fingerprint-004'),
     familyId: 'fam-4',
     geneticMarkers: [],
@@ -255,7 +274,10 @@ export const seedPatients: Patient[] = [
     consentStatus: [],
   },
   {
-    id: 'pat-5', name: 'Vikram Singh', age: 55, gender: 'Male', bloodGroup: 'O-', mobile: '+91-9876500040', email: 'vikram.s@email.com', address: '33, Sector 15, Chandigarh', aadhaar: '5678-9012-3456',
+    id: 'pat-5',
+    pmid: 'PMID-IND-9L44X17V',
+    pmidStatus: 'verified',
+    name: 'Vikram Singh', age: 55, gender: 'Male', bloodGroup: 'O-', mobile: '+91-9876500040', email: 'vikram.s@email.com', address: '33, Sector 15, Chandigarh', aadhaar: '5678-9012-3456',
     fingerprintHash: sha256('vikram-fingerprint-005'),
     familyId: 'fam-5',
     geneticMarkers: [{ gene: 'HFE', variant: 'C282Y', riskLevel: 'moderate', condition: 'Hemochromatosis' }],
@@ -504,6 +526,188 @@ export const seedChatMessages: ChatMessage[] = [
   { id: 'msg-3', senderId: 'pat-1', senderName: 'Arjun Mehta', senderRole: 'patient', recipientId: 'doc-1', message: 'Thank you doctor. Yes I took it. I will check again tomorrow. Also, I uploaded my latest lab results.', timestamp: new Date(Date.now() - 5400000).toISOString(), read: false, type: 'text' },
 ];
 
+// ===== SEED REFERRALS (Pre-Arrival Medical Handoff) =====
+export const seedReferrals: Referral[] = [
+  {
+    id: 'ref-101',
+    pmid: 'PMID-IND-8F42K91X',
+    patientId: 'pat-1',
+    patientName: 'Rahul Kumar',
+    patientAge: 24,
+    patientGender: 'Male',
+    bloodGroup: 'B+',
+    fromHospitalId: 'hosp-4',
+    fromHospitalName: 'ABC Hospital',
+    fromDoctorId: 'doc-4',
+    fromDoctorName: 'Dr. Anil Kapoor',
+    fromDoctorContact: '+91-98765-43213',
+    fromEmergencyPhone: '108 / +91-141-2220045',
+    toHospitalId: 'hosp-1',
+    toHospitalName: 'Apollo Multispeciality Hospital',
+    toDoctorId: 'doc-1',
+    toDoctorName: 'Dr. Priya Sharma',
+    priority: 'CRITICAL',
+    status: 'RECEIVED',
+    reason: 'Acute respiratory distress & refractory bronchospasm',
+    knownConditions: ['Bronchial Asthma', 'Mild Mitral Valve Prolapse'],
+    allergies: ['Penicillin (Severe Anaphylaxis risk)', 'Sulfa Drugs'],
+    currentMedications: ['Salbutamol Inhaler 100mcg', 'Budesonide 200mcg'],
+    latestVitals: {
+      bp: '138/92 mmHg',
+      pulse: 128,
+      spo2: 84,
+      temp: 101.4,
+      respRate: 34
+    },
+    treatmentProvided: 'High-flow oxygen (10 L/min via non-rebreather mask), Salbutamol + Ipratropium nebulization x 2 cycles, IV Hydrocortisone 100mg stat.',
+    medicationAdministered: 'IV Hydrocortisone 100mg at 23:15, DuoResp Inhalation Solution at 23:20',
+    importantWarnings: [
+      'CRITICAL: Severe Penicillin Anaphylaxis risk',
+      'AIRWAY WARNING: Impending respiratory failure if wheezing declines',
+      'Expected physical arrival in 15–20 minutes via ALS ambulance'
+    ],
+    doctorNotes: 'Patient was admitted at ABC Hospital with progressive dyspnea and wheezing unresponsive to initial bronchodilator therapy. Peripheral saturation plummeted to 84% despite oxygen. Immediate transfer requested for tertiary ICU support and potential intubation.',
+    attachedReports: [
+      { id: 'att-1', title: 'Emergency Arterial Blood Gas (ABG)', type: 'lab_report', date: '2026-09-17', fileSize: '1.2 MB', summary: 'pH 7.28, PaCO2 54 mmHg, PaO2 58 mmHg, HCO3 24 mEq/L' },
+      { id: 'att-2', title: 'Chest CT Scan / Radiograph', type: 'scan', date: '2026-09-17', fileSize: '18.4 MB', summary: 'Severe diffuse peribronchial thickening, hyperinflation, no pneumothorax' },
+      { id: 'att-3', title: 'Pre-Transfer Emergency Prescription', type: 'prescription', date: '2026-09-17', fileSize: '0.8 MB', summary: 'Hydrocortisone IV 100mg stat, DuoResp neb, Normal Saline 500ml' }
+    ],
+    expectedArrivalMinutes: 18,
+    date: new Date(Date.now() - 15 * 60000).toISOString(),
+    createdAt: new Date(Date.now() - 15 * 60000).toISOString(),
+    updatedAt: new Date(Date.now() - 4 * 60000).toISOString(),
+    timeline: [
+      { status: 'CREATED', timestamp: new Date(Date.now() - 15 * 60000).toISOString(), actor: 'Dr. Anil Kapoor (ABC Hospital)', note: 'Emergency referral created at referring facility' },
+      { status: 'SENT', timestamp: new Date(Date.now() - 12 * 60000).toISOString(), actor: 'HealthBridge Inter-Hospital Gateway', note: 'Dispatched to Apollo Multispeciality Hospital' },
+      { status: 'RECEIVED', timestamp: new Date(Date.now() - 4 * 60000).toISOString(), actor: 'Apollo Emergency Command Desk', note: 'Pre-arrival notification broadcasted to ER triage and ICU team' }
+    ],
+    communicationLog: [
+      {
+        id: 'com-1',
+        senderDoctorId: 'doc-4',
+        senderDoctorName: 'Dr. Anil Kapoor',
+        senderHospitalName: 'ABC Hospital',
+        timestamp: new Date(Date.now() - 11 * 60000).toISOString(),
+        message: 'Patient in respiratory exhaustion. Please reserve an ICU bed with ventilator on standby in Trauma Bay 1.',
+        urgent: true
+      },
+      {
+        id: 'com-2',
+        senderDoctorId: 'doc-1',
+        senderDoctorName: 'Dr. Priya Sharma',
+        senderHospitalName: 'Apollo Multispeciality Hospital',
+        timestamp: new Date(Date.now() - 3 * 60000).toISOString(),
+        message: 'Trauma Bay 1 ready. Respiratory therapist and rapid response intubation team alerted. Green corridor confirmed.',
+        urgent: false
+      }
+    ]
+  },
+  {
+    id: 'ref-102',
+    pmid: 'PMID-IND-7T19K52Z',
+    patientId: 'pat-3',
+    patientName: 'Ramesh Gupta',
+    patientAge: 68,
+    patientGender: 'Male',
+    bloodGroup: 'A-',
+    fromHospitalId: 'hosp-3',
+    fromHospitalName: 'Government District Hospital',
+    fromDoctorId: 'doc-3',
+    fromDoctorName: 'Dr. Meera Reddy',
+    fromDoctorContact: '+91-98765-43212',
+    toHospitalId: 'hosp-1',
+    toHospitalName: 'Apollo Multispeciality Hospital',
+    toDoctorId: 'doc-1',
+    toDoctorName: 'Dr. Priya Sharma',
+    priority: 'URGENT',
+    status: 'ACCEPTED',
+    reason: 'Decompensated Heart Failure & CKD Stage 3 worsening',
+    knownConditions: ['Coronary Artery Disease', 'Type 2 Diabetes', 'CKD Stage 3'],
+    allergies: ['Aspirin (Severe bronchospasm)'],
+    currentMedications: ['Warfarin 5mg', 'Metformin 250mg', 'Lisinopril 10mg'],
+    latestVitals: {
+      bp: '154/96 mmHg',
+      pulse: 94,
+      spo2: 91,
+      temp: 98.6,
+      respRate: 22
+    },
+    treatmentProvided: 'IV Furosemide 40mg, fluid restriction 1L/day, continuous telemetry monitoring.',
+    medicationAdministered: 'IV Furosemide 40mg at 18:30',
+    importantWarnings: [
+      'DO NOT ADMINISTER ASPIRIN (Severe allergy)',
+      'Patient on active Warfarin anticoagulation (Check INR)'
+    ],
+    doctorNotes: 'Progressive bilateral pedal edema and orthopnea over 48 hours. Creatinine elevated to 2.1 mg/dL. Transferring for advanced cardiology and nephrology evaluation.',
+    attachedReports: [
+      { id: 'att-4', title: 'Renal Function & Serum Electrolytes', type: 'lab_report', date: '2026-09-16', fileSize: '0.9 MB', summary: 'Creatinine 2.1, BUN 42, Potassium 4.8' },
+      { id: 'att-5', title: '2D Echocardiography Report', type: 'scan', date: '2026-09-15', fileSize: '4.2 MB', summary: 'LVEF 35%, moderate mitral regurgitation, dilated left atrium' }
+    ],
+    expectedArrivalMinutes: 45,
+    date: new Date(Date.now() - 2 * 3600000).toISOString(),
+    createdAt: new Date(Date.now() - 2 * 3600000).toISOString(),
+    updatedAt: new Date(Date.now() - 30 * 60000).toISOString(),
+    timeline: [
+      { status: 'CREATED', timestamp: new Date(Date.now() - 2 * 3600000).toISOString(), actor: 'Dr. Meera Reddy', note: 'Referral created' },
+      { status: 'SENT', timestamp: new Date(Date.now() - 110 * 60000).toISOString(), actor: 'Govt District Hospital Dispatch', note: 'Referral package transmitted' },
+      { status: 'RECEIVED', timestamp: new Date(Date.now() - 60 * 60000).toISOString(), actor: 'Apollo Multispeciality Hospital', note: 'Referral received and routed to Cardiology' },
+      { status: 'ACCEPTED', timestamp: new Date(Date.now() - 30 * 60000).toISOString(), actor: 'Dr. Priya Sharma', note: 'Referral accepted, cardiac bed reserved' }
+    ],
+    communicationLog: [
+      {
+        id: 'com-3',
+        senderDoctorId: 'doc-3',
+        senderDoctorName: 'Dr. Meera Reddy',
+        senderHospitalName: 'Government District Hospital',
+        timestamp: new Date(Date.now() - 50 * 60000).toISOString(),
+        message: 'Dr. Sharma, patient is stable but needs non-invasive positive pressure ventilation if dyspnea worsens during transport.',
+        urgent: false
+      }
+    ]
+  },
+  {
+    id: 'ref-103',
+    pmid: 'PMID-IND-3C91M74P',
+    patientId: 'pat-2',
+    patientName: 'Sneha Iyer',
+    patientAge: 32,
+    patientGender: 'Female',
+    bloodGroup: 'O+',
+    fromHospitalId: 'hosp-1',
+    fromHospitalName: 'Apollo Multispeciality Hospital',
+    fromDoctorId: 'doc-3',
+    fromDoctorName: 'Dr. Meera Reddy',
+    toHospitalId: 'hosp-2',
+    toHospitalName: 'Fortis Heart Institute',
+    priority: 'NORMAL',
+    status: 'COMPLETED',
+    reason: 'Elective Outpatient Pulmonary Consultation',
+    knownConditions: ['Asthma'],
+    allergies: ['NSAIDs', 'Latex'],
+    currentMedications: ['Budesonide Inhaler 200mcg'],
+    latestVitals: {
+      bp: '118/76 mmHg',
+      pulse: 74,
+      spo2: 99,
+      temp: 98.4
+    },
+    treatmentProvided: 'Routine checkup completed',
+    medicationAdministered: 'None',
+    importantWarnings: ['Latex and NSAID allergy'],
+    doctorNotes: 'Consultation completed successfully. Spirometry showed normal FEV1/FVC ratio.',
+    attachedReports: [],
+    expectedArrivalMinutes: 0,
+    date: new Date(Date.now() - 86400000 * 5).toISOString(),
+    createdAt: new Date(Date.now() - 86400000 * 5).toISOString(),
+    updatedAt: new Date(Date.now() - 86400000 * 4).toISOString(),
+    timeline: [
+      { status: 'CREATED', timestamp: new Date(Date.now() - 86400000 * 5).toISOString(), actor: 'Dr. Meera Reddy', note: 'Consultation referral opened' },
+      { status: 'COMPLETED', timestamp: new Date(Date.now() - 86400000 * 4).toISOString(), actor: 'Fortis Pulmonology Clinic', note: 'Evaluation completed and report closed' }
+    ],
+    communicationLog: []
+  }
+];
+
 // ===== SEED DATA INITIALIZATION =====
 export function initializeData(): void {
   const keys = [
@@ -513,11 +717,17 @@ export function initializeData(): void {
     'hb_insurance_claims', 'hb_health_alerts', 'hb_audit_logs',
     'hb_disease_clusters', 'hb_vaccination_camps', 'hb_environmental_data',
     'hb_government_schemes', 'hb_telemedicine', 'hb_mental_health',
-    'hb_chat_messages',
+    'hb_chat_messages', 'hb_referrals',
   ];
 
   // Only seed if not already seeded
-  if (localStorage.getItem('hb_initialized') === 'true') return;
+  if (localStorage.getItem('hb_initialized') === 'true') {
+    // If referrals were not previously seeded, ensure they are seeded
+    if (!localStorage.getItem('hb_referrals')) {
+      localStorage.setItem('hb_referrals', JSON.stringify(seedReferrals));
+    }
+    return;
+  }
 
   localStorage.setItem('hb_users', JSON.stringify(seedUsers));
   localStorage.setItem('hb_patients', JSON.stringify(seedPatients));
@@ -539,6 +749,7 @@ export function initializeData(): void {
   localStorage.setItem('hb_telemedicine', JSON.stringify(seedTelemedicineAppointments));
   localStorage.setItem('hb_mental_health', JSON.stringify(seedMentalHealthAssessments));
   localStorage.setItem('hb_chat_messages', JSON.stringify(seedChatMessages));
+  localStorage.setItem('hb_referrals', JSON.stringify(seedReferrals));
 
   localStorage.setItem('hb_initialized', 'true');
 }

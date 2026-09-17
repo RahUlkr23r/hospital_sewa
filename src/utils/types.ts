@@ -16,6 +16,8 @@ export interface User {
 
 export interface Patient {
   id: string;
+  pmid?: string;
+  pmidStatus?: 'verified' | 'pending' | 'flagged';
   name: string;
   age: number;
   gender: 'Male' | 'Female' | 'Other';
@@ -501,15 +503,111 @@ export interface ChatMessage {
   type: 'text' | 'prescription' | 'lab_result' | 'file';
 }
 
+export type ReferralPriority = 'CRITICAL' | 'EMERGENCY' | 'URGENT' | 'NORMAL';
+
+export type ReferralStatus = 
+  | 'CREATED'
+  | 'SENT'
+  | 'RECEIVED'
+  | 'ACCEPTED'
+  | 'PREPARING'
+  | 'PATIENT ARRIVED'
+  | 'ADMITTED'
+  | 'COMPLETED'
+  | 'CANCELLED'
+  | 'pending'
+  | 'declined';
+
+export interface ReferralAttachedRecord {
+  id: string;
+  title: string;
+  type: 'lab_report' | 'scan' | 'prescription' | 'vitals_sheet' | 'clinical_summary';
+  date: string;
+  fileSize?: string;
+  summary?: string;
+}
+
+export interface DoctorCommunicationNote {
+  id: string;
+  senderDoctorId: string;
+  senderDoctorName: string;
+  senderHospitalName: string;
+  timestamp: string;
+  message: string;
+  urgent?: boolean;
+}
+
+export interface ReferralTimelineEntry {
+  status: ReferralStatus;
+  timestamp: string;
+  actor: string;
+  note?: string;
+}
+
+export interface BreakGlassAccess {
+  accessedBy: string;
+  doctorName: string;
+  hospitalName: string;
+  reason: string;
+  timestamp: string;
+  consentType: 'PATIENT_CONSENT' | 'BREAK_GLASS_EMERGENCY';
+  auditLogId?: string;
+}
+
 export interface Referral {
   id: string;
+  pmid: string;
   patientId: string;
+  patientName: string;
+  patientAge: number;
+  patientGender: string;
+  bloodGroup: string;
+  
+  // Referring Facility & Doctor (Hospital A)
+  fromHospitalId: string;
+  fromHospitalName: string;
   fromDoctorId: string;
-  toDoctorId: string;
+  fromDoctorName: string;
+  fromDoctorContact?: string;
+  fromEmergencyPhone?: string;
+
+  // Receiving Facility & Doctor (Hospital B)
+  toHospitalId: string;
+  toHospitalName: string;
+  toDoctorId?: string;
+  toDoctorName?: string;
+
+  priority: ReferralPriority;
+  status: ReferralStatus;
   reason: string;
-  notes: string;
-  date: string;
-  status: 'pending' | 'accepted' | 'completed' | 'declined';
+  
+  // Clinical Handoff Details
+  knownConditions: string[];
+  allergies: string[];
+  currentMedications: string[];
+  latestVitals: {
+    bp: string;
+    pulse: number;
+    spo2: number;
+    temp: number;
+    respRate?: number;
+  };
+  treatmentProvided: string;
+  medicationAdministered: string;
+  importantWarnings: string[];
+  doctorNotes: string;
+  attachedReports: ReferralAttachedRecord[];
+
+  // ETA and timing
+  expectedArrivalMinutes: number;
+  date: string; // ISO date
+  createdAt: string;
+  updatedAt: string;
+
+  // Tracking & Doctor Comms
+  timeline: ReferralTimelineEntry[];
+  communicationLog: DoctorCommunicationNote[];
+  breakGlassAccess?: BreakGlassAccess;
 }
 
 // ================================
